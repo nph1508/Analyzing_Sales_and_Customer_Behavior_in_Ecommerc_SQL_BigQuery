@@ -21,7 +21,6 @@ Table Schema: https://support.google.com/analytics/answer/3437719?hl=en
 | hits.product.productSKU              | STRING    | Product SKU. |
 | hits.product.v2ProductName           | STRING    | Product Name. |
 ## Query 01: Calculate total visit, pageview, transaction for Jan, Feb and March 2017 (order by month)
-test nhé
 ```sql
 select 
   format_date('%Y%m',parse_date('%Y%m%d', `date`)) as month, -- Chuyển đổi thành dạng YYYYMM
