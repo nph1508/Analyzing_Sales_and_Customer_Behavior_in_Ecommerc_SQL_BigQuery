@@ -52,6 +52,7 @@ from `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`
 group by source
 order by total_visits DESC;
 ```
+### ✅ Results:
 | source | total_visits | total_no_of_bounces | bounce_rate |
 | --- | --- | --- | --- |
 | google | 38400 | 19798 | 51.56 |
@@ -180,6 +181,7 @@ GROUP BY time, source
 
 ORDER BY time_type, revenue desc;
 ```
+### ✅ Results:
 | time_type | time | source | revenue |
 | --- | --- | --- | --- |
 | Month | 201706 | (direct) | 97,333.62 |
@@ -265,6 +267,7 @@ from purchaser_data pd
 full join non_purchaser_data using(month)
 order by pd.month; 
 ```
+### ✅ Results:
 | month | avg_pageviews_purchase | avg_pageviews_non_purchase |
 | --- | --- | --- |
 | 201706 | 94.02 | 316.87 |
@@ -284,6 +287,7 @@ where  totals.transactions>=1
 and product.productRevenue is not null
 group by month;
 ```
+### ✅ Results:
 | month | Avg_total_transactions_per_user |
 | ----- | ------------------------------- |
 | 201707 | 4.164|
@@ -301,6 +305,7 @@ where product.productRevenue is not null
   and totals.transactions>=1
 group by month;
 ```
+### ✅ Results:
 | month | avg_revenue_by_user_per_visit |
 | ----- | ----------------------------- |
 | 201707 | 43.86|
@@ -329,6 +334,7 @@ WHERE product.v2ProductName != "YouTube Men's Vintage Henley" --Lọc danh sách
 GROUP BY product.v2ProductName
 ORDER BY quantity DESC;
 ```
+### ✅ Results:
 | other_purchased_products | quantity |
 | --- | --- |
 | Google Sunglasses | 20 |
@@ -406,6 +412,7 @@ select
     round(num_purchase/num_product_view * 100, 2) as purchase_rate
 from product_data;
 ```
+### ✅ Results:
 | month | num_product_view | num_add_to_cart | num_purchase | add_to_cart_rate | purchase_rate |
 | --- | --- | --- | --- | --- | --- |
 | 201701 | 25787 | 7342 | 2143 | 28.47 | 8.31 |
