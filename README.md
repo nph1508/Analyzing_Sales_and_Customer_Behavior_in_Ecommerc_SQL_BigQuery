@@ -54,7 +54,7 @@ order by total_visits DESC;
 ```
 ### ✅ Results:
 | source | total_visits | total_no_of_bounces | bounce_rate |
-| --- | --- | --- | --- |
+| ------ | ------------ | ------------------- | ----------- |
 | google | 38400 | 19798 | 51.56 |
 | (direct) | 19891 | 8606 | 43.27 |
 | youtube.com | 6351 | 4238 | 66.73 |
@@ -153,6 +153,7 @@ order by total_visits DESC;
 | google.com.br | 1 |  |  |
 | suche.t-online.de | 1 | 1 | 100 |
 
+**📝 Observation:** Google and direct traffic are the main sources by volume, while platforms like Reddit and mail.google.com show significantly lower bounce rates.
 ## Query 3: Revenue by traffic source by week, by month in June 2017
 ```sql
 SELECT --Lấy dữ liệu theo tháng
@@ -231,6 +232,7 @@ ORDER BY time_type, revenue desc;
 | Week | 201724 | bing | 13.98 |
 | Week | 201724 | l.facebook.com | 12.48 |
 
+**📝 Observation:** Direct traffic drives the most revenue both monthly and weekly. Google and DFA are also top-performing sources, but with lower contribution.
 ## Query 04: Average number of pageviews by purchaser type (purchasers vs non-purchasers) in June, July 2017.
 ```sql
 with 
@@ -273,6 +275,7 @@ order by pd.month;
 | 201706 | 94.02 | 316.87 |
 | 201707 | 124.24 | 334.06 |
 
+**📝 Observation:** Surprisingly, non-purchasers have much higher average pageviews per user than purchasers, suggesting browsing-heavy behavior without conversion.
 ## Query 05: Average number of transactions per user that made a purchase in July 2017
 ```sql
 select
@@ -291,6 +294,8 @@ group by month;
 | month | Avg_total_transactions_per_user |
 | ----- | ------------------------------- |
 | 201707 | 4.164|
+
+**📝 Observation:** On average, each purchasing user completed over 4 transactions, indicating strong repeat buying behavior in July.
 ## Query 06: Average amount of money spent per session. Only include purchaser data in July 2017
 ```sql
 select
@@ -309,6 +314,8 @@ group by month;
 | month | avg_revenue_by_user_per_visit |
 | ----- | ----------------------------- |
 | 201707 | 43.86|
+
+**📝 Observation:** Each purchase session generated an average of $43.86 in revenue, which reflects solid value per visit from buyers.
 ## Query 07: Other products purchased by customers who purchased product "YouTube Men's Vintage Henley" in July 2017. Output should show product name and the quantity was ordered.
 ```sql
 WITH Customers AS ( --xác định khách hàng đã mua sphẩm
@@ -388,6 +395,7 @@ ORDER BY quantity DESC;
 | Google Men's  Zip Hoodie | 1 |
 | Google Slim Utility Travel Bag | 1 |
 
+**📝 Observation:** Customers who bought the YouTube Henley also frequently purchased other branded apparel and accessories, especially Google Sunglasses.
 ## "Query 08: Calculate cohort map from product view to addtocart to purchase in Jan, Feb and March 2017. For example, 100% product view then 40% add_to_cart and 10% purchase. 
 ### Add_to_cart_rate = number product  add to cart/number product view. Purchase_rate = number product purchase/number product view. The output should be calculated in product level."
 ```sql
@@ -413,8 +421,10 @@ select
 from product_data;
 ```
 ### ✅ Results:
-| month | num_product_view | num_add_to_cart | num_purchase | add_to_cart_rate | purchase_rate |
-| --- | --- | --- | --- | --- | --- |
-| 201701 | 25787 | 7342 | 2143 | 28.47 | 8.31 |
-| 201702 | 21489 | 7360 | 2060 | 34.25 | 9.59 |
-| 201703 | 23549 | 8782 | 2977 | 37.29 | 12.64 |
+| month  | num_product_view | num_add_to_cart | num_purchase | add_to_cart_rate | purchase_rate |
+| ------ | ---------------- | --------------- | ------------ | ---------------- | ------------- |
+| 201701 | 25787            | 7342            | 2143         | 28.47            | 8.31          |
+| 201702 | 21489            | 7360            | 2060         | 34.25            | 9.59          |
+| 201703 | 23549            | 8782            | 2977         | 37.29            | 12.64         |
+
+**📝 Observation:** Conversion rates improve over time, with March showing the highest add-to-cart (37.29%) and purchase (12.64%) rates among the three months.
