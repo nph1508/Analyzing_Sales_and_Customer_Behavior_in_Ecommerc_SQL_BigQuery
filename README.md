@@ -64,122 +64,35 @@ order by total_visits DESC;
 | dfa | 302 | 124 | 41.06 |
 | sites.google.com | 230 | 97 | 42.17 |
 | facebook.com | 191 | 102 | 53.4 |
-| reddit.com | 189 | 54 | 28.57 |
-| qiita.com | 146 | 72 | 49.32 |
-| baidu | 140 | 84 | 60 |
-| quora.com | 140 | 70 | 50 |
-| bing | 111 | 54 | 48.65 |
-| mail.google.com | 101 | 25 | 24.75 |
-| yahoo | 100 | 41 | 41 |
-| blog.golang.org | 65 | 19 | 29.23 |
-| l.facebook.com | 51 | 45 | 88.24 |
-| groups.google.com | 50 | 22 | 44 |
-| t.co | 38 | 27 | 71.05 |
-| google.co.jp | 36 | 25 | 69.44 |
-| m.youtube.com | 34 | 22 | 64.71 |
-| dealspotr.com | 26 | 12 | 46.15 |
-| productforums.google.com | 25 | 21 | 84 |
-| ask | 24 | 16 | 66.67 |
-| support.google.com | 24 | 16 | 66.67 |
-| int.search.tb.ask.com | 23 | 17 | 73.91 |
-| optimize.google.com | 21 | 10 | 47.62 |
-| docs.google.com | 20 | 8 | 40 |
-| lm.facebook.com | 18 | 9 | 50 |
-| l.messenger.com | 17 | 6 | 35.29 |
-| adwords.google.com | 16 | 7 | 43.75 |
-| duckduckgo.com | 16 | 14 | 87.5 |
-| google.co.uk | 15 | 7 | 46.67 |
-| sashihara.jp | 14 | 8 | 57.14 |
-| lunametrics.com | 13 | 8 | 61.54 |
-| search.mysearch.com | 12 | 11 | 91.67 |
-| tw.search.yahoo.com | 10 | 8 | 80 |
-| outlook.live.com | 10 | 7 | 70 |
-| phandroid.com | 9 | 7 | 77.78 |
-| plus.google.com | 8 | 2 | 25 |
-| connect.googleforwork.com | 8 | 5 | 62.5 |
-| m.yz.sm.cn | 7 | 5 | 71.43 |
-| search.xfinity.com | 6 | 6 | 100 |
-| google.co.in | 6 | 3 | 50 |
-| google.ru | 5 | 1 | 20 |
-| online-metrics.com | 5 | 2 | 40 |
-| hangouts.google.com | 5 | 1 | 20 |
-| s0.2mdn.net | 5 | 3 | 60 |
-| m.sogou.com | 4 | 3 | 75 |
-| in.search.yahoo.com | 4 | 2 | 50 |
-| googleads.g.doubleclick.net | 4 | 1 | 25 |
-| away.vk.com | 4 | 3 | 75 |
-| getpocket.com | 3 |  |  |
-| m.baidu.com | 3 | 2 | 66.67 |
-| siliconvalley.about.com | 3 | 2 | 66.67 |
-| wap.sogou.com | 2 | 2 | 100 |
-| calendar.google.com | 2 | 1 | 50 |
-| google.it | 2 | 1 | 50 |
-| google.co.th | 2 | 1 | 50 |
-| msn.com | 2 | 1 | 50 |
-| github.com | 2 | 2 | 100 |
-| centrum.cz | 2 | 2 | 100 |
-| myactivity.google.com | 2 | 1 | 50 |
-| plus.url.google.com | 2 |  |  |
-| google.cl | 2 | 1 | 50 |
-| uk.search.yahoo.com | 2 | 1 | 50 |
-| search.1and1.com | 2 | 2 | 100 |
-| moodle.aurora.edu | 2 | 2 | 100 |
-| au.search.yahoo.com | 2 | 2 | 100 |
-| m.sp.sm.cn | 2 | 2 | 100 |
-| amp.reddit.com | 2 | 1 | 50 |
-| earth.google.com | 1 |  |  |
-| google.es | 1 | 1 | 100 |
-| google.ca | 1 |  |  |
-| google.nl | 1 |  |  |
-| aol | 1 |  |  |
-| kik.com | 1 | 1 | 100 |
-| kidrex.org | 1 | 1 | 100 |
-| malaysia.search.yahoo.com | 1 | 1 | 100 |
-| newclasses.nyu.edu | 1 |  |  |
-| gophergala.com | 1 | 1 | 100 |
-| es.search.yahoo.com | 1 | 1 | 100 |
-| ph.search.yahoo.com | 1 |  |  |
-| web.mail.comcast.net | 1 | 1 | 100 |
-| images.google.com.au | 1 | 1 | 100 |
-| it.pinterest.com | 1 | 1 | 100 |
-| web.facebook.com | 1 | 1 | 100 |
-| google.bg | 1 | 1 | 100 |
-| news.ycombinator.com | 1 | 1 | 100 |
-| search.tb.ask.com | 1 |  |  |
-| online.fullsail.edu | 1 | 1 | 100 |
-| arstechnica.com | 1 |  |  |
-| mx.search.yahoo.com | 1 | 1 | 100 |
-| google.com.br | 1 |  |  |
-| suche.t-online.de | 1 | 1 | 100 |
 
 **📝 Observation:** Google and direct traffic are the main sources by volume, while platforms like Reddit and mail.google.com show significantly lower bounce rates.
 ## Query 3: Revenue by traffic source by week, by month in June 2017
 ```sql
-SELECT --Lấy dữ liệu theo tháng
-    'Month' AS time_type,
-    FORMAT_DATE('%Y%m', DATE(PARSE_DATE('%Y%m%d', date))) AS time,
-    trafficSource.source AS source,
-    SUM(product.productRevenue) / 1000000 AS revenue
-FROM `bigquery-public-data.google_analytics_sample.ga_sessions_201706*`,
-UNNEST(hits) AS hit,
-UNNEST(hit.product) AS product
-WHERE product.productRevenue IS NOT NULL
-GROUP BY time, source
+select 
+    'month' as time_type,
+    format_date('%y%m', date(parse_date('%y%m%d', date))) as time,
+    trafficsource.source as source,
+    sum(product.productrevenue) / 1000000 as revenue
+from `bigquery-public-data.google_analytics_sample.ga_sessions_201706*`,
+unnest(hits) as hit,
+unnest(hit.product) as product
+where product.productrevenue is not null
+group by time, source
 
-UNION ALL -- Gộp lại với nhau
+union all 
 
-SELECT --Lấy dữ liệu theo tuần
-    'Week' AS time_type,
-    FORMAT_DATE('%Y%W', DATE(PARSE_DATE('%Y%m%d', date))) AS time,
-    trafficSource.source AS source,
-    SUM(product.productRevenue) / 1000000 AS revenue
-FROM `bigquery-public-data.google_analytics_sample.ga_sessions_201706*`,
-UNNEST(hits) AS hit,
-UNNEST(hit.product) AS product
-WHERE product.productRevenue IS NOT NULL
-GROUP BY time, source
+select
+    'week' as time_type,
+    format_date('%y%w', date(parse_date('%y%m%d', date))) as time,
+    trafficsource.source as source,
+    sum(product.productrevenue) / 1000000 as revenue
+from `bigquery-public-data.google_analytics_sample.ga_sessions_201706*`,
+unnest(hits) as hit,
+unnest(hit.product) as product
+where product.productrevenue is not null
+group by time, source
 
-ORDER BY time_type, revenue desc;
+order by time_type, revenue desc;
 ```
 ### ✅ Results:
 | time_type | time | source | revenue |
@@ -194,12 +107,6 @@ ORDER BY time_type, revenue desc;
 | Month | 201706 | dealspotr.com | 72.95 |
 | Month | 201706 | mail.aol.com | 64.849998 |
 | Month | 201706 | phandroid.com | 52.95 |
-| Month | 201706 | sites.google.com | 39.17 |
-| Month | 201706 | google.com | 23.99 |
-| Month | 201706 | yahoo | 20.39 |
-| Month | 201706 | youtube.com | 16.99 |
-| Month | 201706 | bing | 13.98 |
-| Month | 201706 | l.facebook.com | 12.48 |
 | Week | 201724 | (direct) | 30,908.91 |
 | Week | 201725 | (direct) | 27,295.32 |
 | Week | 201723 | (direct) | 17,325.68 |
@@ -210,26 +117,6 @@ ORDER BY time_type, revenue desc;
 | Week | 201726 | dfa | 3,704.74 |
 | Week | 201724 | mail.google.com | 2,486.86 |
 | Week | 201724 | dfa | 2,341.56 |
-| Week | 201722 | google | 2,119.39 |
-| Week | 201722 | dfa | 1,670.65 |
-| Week | 201723 | dfa | 1,145.28 |
-| Week | 201723 | google | 1,083.95 |
-| Week | 201725 | google | 1,006.10 |
-| Week | 201723 | search.myway.com | 105.939998 |
-| Week | 201725 | mail.google.com | 76.27 |
-| Week | 201723 | chat.google.com | 74.03 |
-| Week | 201724 | dealspotr.com | 72.95 |
-| Week | 201725 | mail.aol.com | 64.849998 |
-| Week | 201726 | groups.google.com | 63.37 |
-| Week | 201725 | phandroid.com | 52.95 |
-| Week | 201725 | groups.google.com | 38.59 |
-| Week | 201725 | sites.google.com | 25.19 |
-| Week | 201725 | google.com | 23.99 |
-| Week | 201726 | yahoo | 20.39 |
-| Week | 201723 | youtube.com | 16.99 |
-| Week | 201722 | sites.google.com | 13.98 |
-| Week | 201724 | bing | 13.98 |
-| Week | 201724 | l.facebook.com | 12.48 |
 
 **📝 Observation:** Direct traffic drives the most revenue both monthly and weekly. Google and DFA are also top-performing sources, but with lower contribution.
 ## Query 04: Average number of pageviews by purchaser type (purchasers vs non-purchasers) in June, July 2017.
@@ -317,28 +204,28 @@ group by month;
 **📝 Observation:** Each purchase session generated an average of $43.86 in revenue, which reflects solid value per visit from buyers.
 ## Query 07: Other products purchased by customers who purchased product "YouTube Men's Vintage Henley" in July 2017. Output should show product name and the quantity was ordered.
 ```sql
-WITH Customers AS ( --xác định khách hàng đã mua sphẩm
-  SELECT distinct fullVisitorId
-  FROM `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`,
-  UNNEST(hits) AS hits,
-  UNNEST(hits.product) AS product
-  WHERE product.v2ProductName = "YouTube Men's Vintage Henley"
-    AND product.productRevenue IS NOT NULL                       -- Chỉ tính những người có revenue
-    AND totals.transactions >= 1                                 -- Chỉ lấy người dùng có giao dịch
+with customers as (
+  select distinct fullvisitorid
+  from `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`,
+  unnest(hits) as hits,
+  unnest(hits.product) as product
+  where product.v2productname = "youtube men's vintage henley"
+    and product.productrevenue is not null
+    and totals.transactions >= 1
 )
 
-SELECT 
-  product.v2ProductName AS other_purchased_products, 
-  SUM(product.productQuantity) AS quantity -- 
-FROM `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`,
-UNNEST(hits) AS hits,
-UNNEST(hits.product) AS product
-JOIN Customers USING (fullVisitorId)
-WHERE product.v2ProductName != "YouTube Men's Vintage Henley" --Lọc danh sách các sản phẩm khác mà những khách hàng đó đã mua
-  AND product.productRevenue IS NOT NULL                        -- Chỉ tính những người có revenue
-  AND totals.transactions >= 1                                  -- Chỉ lấy người dùng có giao dịch
-GROUP BY product.v2ProductName
-ORDER BY quantity DESC;
+select 
+  product.v2productname as other_purchased_products, 
+  sum(product.productquantity) as quantity -- 
+from `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`,
+unnest(hits) as hits,
+unnest(hits.product) as product
+join customers using (fullvisitorid)
+where product.v2productname != "youtube men's vintage henley"
+  and product.productrevenue is not null
+  and totals.transactions >= 1
+group by product.v2productname
+order by quantity desc;
 ```
 ### ✅ Results:
 | other_purchased_products | quantity |
@@ -353,46 +240,6 @@ ORDER BY quantity DESC;
 | Android Wool Heather Cap Heather/Black | 2 |
 | YouTube Twill Cap | 2 |
 | Recycled Mouse Pad | 2 |
-| Red Shine 15 oz Mug | 2 |
-| Google Doodle Decal | 2 |
-| Google Men's Short Sleeve Hero Tee Charcoal | 2 |
-| Android Women's Fleece Hoodie | 2 |
-| 22 oz YouTube Bottle Infuser | 2 |
-| Android Men's Vintage Henley | 2 |
-| Android Men's Short Sleeve Hero Tee Heather | 1 |
-| YouTube Women's Short Sleeve Tri-blend Badge Tee Charcoal | 1 |
-| YouTube Hard Cover Journal | 1 |
-| Android BTTF Moonshot Graphic Tee | 1 |
-| Google Men's Airflow 1/4 Zip Pullover Black | 1 |
-| YouTube Men's Long & Lean Tee Charcoal | 1 |
-| Google Women's Long Sleeve Tee Lavender | 1 |
-| 8 pc Android Sticker Sheet | 1 |
-| Google Men's Performance 1/4 Zip Pullover Heather/Black | 1 |
-| Google Men's Vintage Badge Tee Black | 1 |
-| YouTube Custom Decals | 1 |
-| Four Color Retractable Pen | 1 |
-| Google Laptop and Cell Phone Stickers | 1 |
-| Google Men's Long & Lean Tee Charcoal | 1 |
-| Google Twill Cap | 1 |
-| Google Men's Long & Lean Tee Grey | 1 |
-| Google Men's Bike Short Sleeve Tee Charcoal | 1 |
-| Google 5-Panel Cap | 1 |
-| Google Toddler Short Sleeve T-shirt Grey | 1 |
-| Android Sticker Sheet Ultra Removable | 1 |
-| Google Men's Long Sleeve Raglan Ocean Blue | 1 |
-| Google Men's Pullover Hoodie Grey | 1 |
-| YouTube Men's Short Sleeve Hero Tee White | 1 |
-| Android Men's Short Sleeve Hero Tee White | 1 |
-| Android Men's Pep Rally Short Sleeve Tee Navy | 1 |
-| YouTube Men's Short Sleeve Hero Tee Black | 1 |
-| YouTube Women's Short Sleeve Hero Tee Charcoal | 1 |
-| Google Men's Performance Full Zip Jacket Black | 1 |
-| 26 oz Double Wall Insulated Bottle | 1 |
-| Google Men's 100% Cotton Short Sleeve Hero Tee Red | 1 |
-| Android Men's Vintage Tank | 1 |
-| Google Men's Vintage Badge Tee White | 1 |
-| Google Men's  Zip Hoodie | 1 |
-| Google Slim Utility Travel Bag | 1 |
 
 **📝 Observation:** Customers who bought the YouTube Henley also frequently purchased other branded apparel and accessories, especially Google Sunglasses.
 ## "Query 08: Calculate cohort map from product view to addtocart to purchase in Jan, Feb and March 2017. For example, 100% product view then 40% add_to_cart and 10% purchase. 
