@@ -23,7 +23,7 @@ Table Schema: https://support.google.com/analytics/answer/3437719?hl=en
 ## Query 01: Calculate total visit, pageview, transaction for Jan, Feb and March 2017 (order by month)
 ```sql
 select 
-  format_date('%Y%m',parse_date('%Y%m%d', `date`)) as month, -- Chuyển đổi thành dạng YYYYMM
+  format_date('%Y%m',parse_date('%Y%m%d', `date`)) as month,
   count(totals.visits) as visits,
   sum(totals.pageviews) as pageviews,
   sum(totals.transactions) as transactions
@@ -45,8 +45,8 @@ order by month;
 select
     trafficSource.source as source,
     sum(totals.visits) as total_visits,
-    sum(totals.Bounces) as total_no_of_bounces,
-    round((sum(totals.Bounces)/sum(totals.visits))* 100.00,2) as bounce_rate
+    sum(totals.bounces) as total_no_of_bounces,
+    round((sum(totals.bounces)/sum(totals.visits))* 100.00,2) as bounce_rate
 from `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`
 group by source
 order by total_visits DESC;
@@ -76,7 +76,7 @@ select
 from `bigquery-public-data.google_analytics_sample.ga_sessions_201706*`,
 unnest(hits) as hit,
 unnest(hit.product) as product
-where product.productrevenue is not null
+where product.productRevenue is not null
 group by time, source
 
 union all 
@@ -85,11 +85,11 @@ select
     'week' as time_type,
     format_date('%y%w', date(parse_date('%y%m%d', date))) as time,
     trafficsource.source as source,
-    sum(product.productrevenue) / 1000000 as revenue
+    sum(product.productRevenue) / 1000000 as revenue
 from `bigquery-public-data.google_analytics_sample.ga_sessions_201706*`,
 unnest(hits) as hit,
 unnest(hit.product) as product
-where product.productrevenue is not null
+where product.productRevenue is not null
 group by time, source
 
 order by time_type, revenue desc;
@@ -125,7 +125,7 @@ with
 purchaser_data as(
   select
       format_date("%Y%m",parse_date("%Y%m%d",date)) as month,
-      round((sum(totals.pageviews)/count(distinct fullvisitorid)),2) as avg_pageviews_purchase,
+      round((sum(totals.pageviews)/count(distinct fullVisitorId)),2) as avg_pageviews_purchase,
   from `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`
     ,unnest(hits) hits
     ,unnest(product) product
@@ -138,7 +138,7 @@ purchaser_data as(
 non_purchaser_data as(
   select
       format_date("%Y%m",parse_date("%Y%m%d",date)) as month,
-      sum(totals.pageviews)/count(distinct fullvisitorid) as avg_pageviews_non_purchase,
+      sum(totals.pageviews)/count(distinct fullVisitorId) as avg_pageviews_non_purchase,
   from `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`
       ,unnest(hits) hits
     ,unnest(product) product
@@ -167,7 +167,7 @@ order by pd.month;
 select
     format_date("%Y%m",parse_date("%Y%m%d",date)) as month,
     round(
-        sum(totals.transactions)/count(distinct fullvisitorid)
+        sum(totals.transactions)/count(distinct fullVisitorId)
         ,3) as Avg_total_transactions_per_user
 from `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`
     ,unnest (hits) hits,
@@ -205,26 +205,26 @@ group by month;
 ## Query 07: Other products purchased by customers who purchased product "YouTube Men's Vintage Henley" in July 2017. Output should show product name and the quantity was ordered.
 ```sql
 with customers as (
-  select distinct fullvisitorid
+  select distinct fullVisitorId
   from `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`,
   unnest(hits) as hits,
   unnest(hits.product) as product
-  where product.v2productname = "youtube men's vintage henley"
-    and product.productrevenue is not null
+  where product.v2ProductName = "youtube men's vintage henley"
+    and product.productRevenue is not null
     and totals.transactions >= 1
 )
 
 select 
-  product.v2productname as other_purchased_products, 
-  sum(product.productquantity) as quantity -- 
+  product.v2ProductName as other_purchased_products, 
+  sum(product.productQuantity) as quantity
 from `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`,
 unnest(hits) as hits,
 unnest(hits.product) as product
-join customers using (fullvisitorid)
-where product.v2productname != "youtube men's vintage henley"
-  and product.productrevenue is not null
+join customers using (fullVisitorId)
+where product.v2ProductName != "youtube men's vintage henley"
+  and product.productRevenue is not null
   and totals.transactions >= 1
-group by product.v2productname
+group by product.v2ProductName
 order by quantity desc;
 ```
 ### ✅ Results:
@@ -248,9 +248,9 @@ order by quantity desc;
 with product_data as(
 select
     format_date('%Y%m', parse_date('%Y%m%d',date)) as month,
-    count(CASE WHEN eCommerceAction.action_type = '2' THEN product.v2ProductName END) as num_product_view,
-    count(CASE WHEN eCommerceAction.action_type = '3' THEN product.v2ProductName END) as num_add_to_cart,
-    count(CASE WHEN eCommerceAction.action_type = '6' and product.productRevenue is not null THEN product.v2ProductName END) as num_purchase
+    count(case when eCommerceAction.action_type = '2' then product.v2ProductName end) as num_product_view,
+    count(case when eCommerceAction.action_type = '3' then product.v2ProductName end) as num_add_to_cart,
+    count(case when eCommerceAction.action_type = '6' and product.productRevenue is not null then product.v2ProductName end) as num_purchase
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_*`
 ,UNNEST(hits) as hits
 ,UNNEST (hits.product) as product
