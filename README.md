@@ -1,5 +1,15 @@
 # SQL for Ecommerce: Analyzing Sales & Customer Behavior in BigQuery
-## DATASET
+Author: Nguyễn Phương Huy
+
+Date: 2000-15-08
+
+Tools Used: SQL
+## 📑 Table of Contents
+1. [📌 Background & Overview](#background--overview)
+2. [📂 Dataset Description & Data Structure](#dataset-description--data-structure)
+3. [🔎 Final Conclusion & Recommendations](#final-conclusion--recommendations)
+## Background & Overview
+## Dataset Description & Data Structure
 Table Schema: https://support.google.com/analytics/answer/3437719?hl=en
 | Field Name                            | Data Type | Description |
 |--------------------------------------|-----------|-------------|
@@ -20,7 +30,9 @@ Table Schema: https://support.google.com/analytics/answer/3437719?hl=en
 | hits.product.productRevenue          | INTEGER   | The revenue of the product, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000). |
 | hits.product.productSKU              | STRING    | Product SKU. |
 | hits.product.v2ProductName           | STRING    | Product Name. |
-## Query 01: Calculate total visit, pageview, transaction for Jan, Feb and March 2017 (order by month)
+
+## Final Conclusion & Recommendations
+### Query 01: Calculate total visit, pageview, transaction for Jan, Feb and March 2017 (order by month)
 ```sql
 select 
   format_date('%Y%m',parse_date('%Y%m%d', `date`)) as month,
@@ -32,7 +44,7 @@ where _table_suffix between '0101' and '0331'
 group by month
 order by month;
 ```
-### ✅ Results:
+#### ✅ Results:
 | month   | visits | pageviews | transactions |
 |---------|--------|-----------|--------------|
 | 201701  | 64,694 | 257,708   | 713          |
@@ -40,7 +52,7 @@ order by month;
 | 201703  | 69,931 | 259,522   | 993          |
 
 **📝 Observation:** The table shows monthly aggregated metrics. March (201703) demonstrates an improvement across all key indicators—visits, pageviews, and transactions—compared to January and February.
-## Query 02: Bounce rate per traffic source in July 2017 (Bounce_rate = num_bounce/total_visit) (order by total_visit DESC)
+### Query 02: Bounce rate per traffic source in July 2017 (Bounce_rate = num_bounce/total_visit) (order by total_visit DESC)
 ```sql
 select
     trafficSource.source as source,
@@ -51,7 +63,7 @@ from `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`
 group by source
 order by total_visits DESC;
 ```
-### ✅ Results:
+#### ✅ Results:
 | source | total_visits | total_no_of_bounces | bounce_rate |
 | ------ | ------------ | ------------------- | ----------- |
 | google | 38400 | 19798 | 51.56 |
@@ -66,7 +78,7 @@ order by total_visits DESC;
 | facebook.com | 191 | 102 | 53.4 |
 
 **📝 Observation:** Google and direct traffic are the main sources by volume, while platforms like Reddit and mail.google.com show significantly lower bounce rates.
-## Query 3: Revenue by traffic source by week, by month in June 2017
+### Query 3: Revenue by traffic source by week, by month in June 2017
 ```sql
 select 
     'month' as time_type,
@@ -94,7 +106,7 @@ group by time, source
 
 order by time_type, revenue desc;
 ```
-### ✅ Results:
+#### ✅ Results:
 | time_type | time | source | revenue |
 | --- | --- | --- | --- |
 | Month | 201706 | (direct) | 97,333.62 |
@@ -119,7 +131,7 @@ order by time_type, revenue desc;
 | Week | 201724 | dfa | 2,341.56 |
 
 **📝 Observation:** Direct traffic drives the most revenue both monthly and weekly. Google and DFA are also top-performing sources, but with lower contribution.
-## Query 04: Average number of pageviews by purchaser type (purchasers vs non-purchasers) in June, July 2017.
+### Query 04: Average number of pageviews by purchaser type (purchasers vs non-purchasers) in June, July 2017.
 ```sql
 with 
 purchaser_data as(
@@ -155,14 +167,14 @@ from purchaser_data pd
 full join non_purchaser_data using(month)
 order by pd.month; 
 ```
-### ✅ Results:
+#### ✅ Results:
 | month | avg_pageviews_purchase | avg_pageviews_non_purchase |
 | --- | --- | --- |
 | 201706 | 94.02 | 316.87 |
 | 201707 | 124.24 | 334.06 |
 
 **📝 Observation:** Surprisingly, non-purchasers have much higher average pageviews per user than purchasers, suggesting browsing-heavy behavior without conversion.
-## Query 05: Average number of transactions per user that made a purchase in July 2017
+### Query 05: Average number of transactions per user that made a purchase in July 2017
 ```sql
 select
     format_date("%Y%m",parse_date("%Y%m%d",date)) as month,
@@ -176,13 +188,13 @@ where  totals.transactions>=1
 and product.productRevenue is not null
 group by month;
 ```
-### ✅ Results:
+#### ✅ Results:
 | month | Avg_total_transactions_per_user |
 | ----- | ------------------------------- |
 | 201707 | 4.164|
 
 **📝 Observation:** On average, each purchasing user completed over 4 transactions, indicating strong repeat buying behavior in July.
-## Query 06: Average amount of money spent per session. Only include purchaser data in July 2017
+### Query 06: Average amount of money spent per session. Only include purchaser data in July 2017
 ```sql
 select
     format_date("%Y%m",parse_date("%Y%m%d",date)) as month,
@@ -196,13 +208,13 @@ where product.productRevenue is not null
   and totals.transactions>=1
 group by month;
 ```
-### ✅ Results:
+#### ✅ Results:
 | month | avg_revenue_by_user_per_visit |
 | ----- | ----------------------------- |
 | 201707 | 43.86|
 
 **📝 Observation:** Each purchase session generated an average of $43.86 in revenue, which reflects solid value per visit from buyers.
-## Query 07: Other products purchased by customers who purchased product "YouTube Men's Vintage Henley" in July 2017. Output should show product name and the quantity was ordered.
+### Query 07: Other products purchased by customers who purchased product "YouTube Men's Vintage Henley" in July 2017. Output should show product name and the quantity was ordered.
 ```sql
 with customers as (
   select distinct fullVisitorId
@@ -227,7 +239,7 @@ where product.v2ProductName != "youtube men's vintage henley"
 group by product.v2ProductName
 order by quantity desc;
 ```
-### ✅ Results:
+#### ✅ Results:
 | other_purchased_products | quantity |
 | --- | --- |
 | Google Sunglasses | 20 |
@@ -242,8 +254,8 @@ order by quantity desc;
 | Recycled Mouse Pad | 2 |
 
 **📝 Observation:** Customers who bought the YouTube Henley also frequently purchased other branded apparel and accessories, especially Google Sunglasses.
-## "Query 08: Calculate cohort map from product view to addtocart to purchase in Jan, Feb and March 2017. For example, 100% product view then 40% add_to_cart and 10% purchase. 
-### Add_to_cart_rate = number product  add to cart/number product view. Purchase_rate = number product purchase/number product view. The output should be calculated in product level."
+### "Query 08: Calculate cohort map from product view to addtocart to purchase in Jan, Feb and March 2017. For example, 100% product view then 40% add_to_cart and 10% purchase. 
+#### Add_to_cart_rate = number product  add to cart/number product view. Purchase_rate = number product purchase/number product view. The output should be calculated in product level."
 ```sql
 with product_data as(
 select
@@ -266,7 +278,7 @@ select
     round(num_purchase/num_product_view * 100, 2) as purchase_rate
 from product_data;
 ```
-### ✅ Results:
+#### ✅ Results:
 | month  | num_product_view | num_add_to_cart | num_purchase | add_to_cart_rate | purchase_rate |
 | ------ | ---------------- | --------------- | ------------ | ---------------- | ------------- |
 | 201701 | 25787            | 7342            | 2143         | 28.47            | 8.31          |
