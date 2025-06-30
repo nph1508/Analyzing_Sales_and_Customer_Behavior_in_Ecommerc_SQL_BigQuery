@@ -1,4 +1,4 @@
-# SQL_E-Commerce_Dataset
+# SQL for Ecommerce: Analyzing Sales & Customer Behavior in BigQuery
 ## DATASET
 Table Schema: https://support.google.com/analytics/answer/3437719?hl=en
 | Field Name                            | Data Type | Description |
