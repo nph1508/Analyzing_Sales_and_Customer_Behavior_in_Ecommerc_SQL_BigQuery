@@ -9,10 +9,72 @@ Tools Used: SQL
 2. [📂 Dataset Description & Data Structure](#dataset-description--data-structure)
 3. [🔎 Final Conclusion & Recommendations](#final-conclusion--recommendations)
 ## Background & Overview
-## Dataset Description & Data Structure
-Table Schema: https://support.google.com/analytics/answer/3437719?hl=en
+🎯 Objective
+📖 This project uses SQL (BigQuery) to analyze an ecommerce dataset in order to:
 
-## Final Conclusion & Recommendations
+✔️ Uncover trends in sales performance across product categories and time periods
+
+✔️ Analyze customer behavior patterns, including frequency and purchase volume
+
+✔️ Identify top-performing products and underperforming segments
+
+✔️ Provide data-driven insights to support inventory, marketing, and sales decisions
+
+💡 Main Business Questions:
+
+What are the best-selling product categories over time?
+
+Which customers contribute most to total revenue?
+
+Are there seasonal patterns in customer purchasing behavior?
+
+How can we segment customers based on their purchase activity?
+
+👤 Who is this project for?
+
+✔️ Data Analysts seeking to practice SQL in a real-world ecommerce context
+
+✔️ Business Analysts / Ecommerce Teams needing insights to optimize operations and marketing
+
+✔️ Decision-Makers who want to understand customer dynamics and product performance
+
+## Dataset Description & Data Structure
+### 📌 Data Source
+
+- **Source:** [Google Analytics Sample Dataset](https://console.cloud.google.com/marketplace/product/bigquery-public-data/google-analytics-sample)  
+- **Size:** ~400,000 rows × 15+ columns  
+- **Format:** BigQuery table (`.sql`)
+
+### 📊 Data Structure & Relationships**
+
+1️⃣ Tables Used:<details>
+  <summary>📋 Click to view </summary>
+
+| Field Name | Data Type | Description |
+| --- | --- | --- |
+| fullVisitorId | STRING | The unique visitor ID. |
+| date | STRING | The date of the session in YYYYMMDD format. |
+| totals | RECORD | This section contains aggregate values across the session. |
+| totals.bounces | INTEGER | Total bounces (for convenience). For a bounced session, the value is 1, otherwise it is null. |
+| totals.hits | INTEGER | Total number of hits within the session. |
+| totals.pageviews | INTEGER | Total number of pageviews within the session. |
+| totals.visits | INTEGER | The number of sessions (for convenience). This value is 1 for sessions with interaction events. The value is null if there are no interaction events in the session. |
+| totals.transactions | INTEGER | Total number of ecommerce transactions within the session. |
+| trafficSource.source | STRING | The source of the traffic source. Could be the name of the search engine, the referring hostname, or a value of the utm_source URL parameter. |
+| hits | RECORD | This row and nested fields are populated for any and all types of hits. |
+| hits.eCommerceAction | RECORD | This section contains all of the ecommerce hits that occurred during the session. This is a repeated field and has an entry for each hit that was collected. |
+| hits.eCommerceAction.action_type | STRING | The action type. Click through of product lists = 1, Product detail views = 2, Add product(s) to cart = 3, Remove product(s) from cart = 4, Check out = 5, Completed purchase = 6, Refund of purchase = 7, Checkout options = 8, Unknown = 0.<br>Usually this action type applies to all the products in a hit, with the following exception: when hits.product.isImpression = TRUE, the corresponding product is a product impression that is seen while the product action is taking place (i.e., a "product in list view").<br>Example query to calculate number of products in list views:<br>SELECT<br>COUNT(hits.product.v2ProductName)<br>FROM [foo-160803:123456789.ga_sessions_20170101]<br>WHERE hits.product.isImpression == TRUE<br>Example query to calculate number of products in detailed view:<br>SELECT<br>COUNT(hits.product.v2ProductName),<br>FROM<br>[foo-160803:123456789.ga_sessions_20170101]<br>WHERE<br>hits.ecommerceaction.action_type = '2'<br>AND ( BOOLEAN(hits.product.isImpression) IS NULL OR BOOLEAN(hits.product.isImpression) == FALSE ) |
+| hits.product | RECORD | This row and nested fields will be populated for each hit that contains Enhanced Ecommerce PRODUCT data. |
+| hits.product.productQuantity | INTEGER | The quantity of the product purchased. |
+| hits.product.productRevenue | INTEGER | The revenue of the product, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000). |
+| hits.product.productSKU | STRING | Product SKU. |
+| hits.product.v2ProductName | STRING | Product Name. |
+
+</details>
+
+2️⃣Table Schema: https://support.google.com/analytics/answer/3437719?hl=en
+
+## ⚒️Main Process
 ### Query 01: Calculate total visit, pageview, transaction for Jan, Feb and March 2017 (order by month)
 ```sql
 select 
@@ -257,3 +319,4 @@ from product_data;
 | 201703 | 23549            | 8782            | 2977         | 37.29            | 12.64         |
 
 **📝 Observation:** Conversion rates improve over time, with March showing the highest add-to-cart (37.29%) and purchase (12.64%) rates among the three months.
+## Final Conclusion & Recommendations
