@@ -76,6 +76,8 @@ How can we segment customers based on their purchase activity?
 
 ## ⚒️Main Process
 ### Query 01: Calculate total visit, pageview, transaction for Jan, Feb and March 2017 (order by month)
+**Purpose:** Aggregates 3 key metrics (visits, pageviews, transactions) by month (Jan–Mar 2017).  
+**Goal:** Detect seasonal performance trends and identify which months bring better engagement.
 ```sql
 select 
   format_date('%Y%m',parse_date('%Y%m%d', `date`)) as month,
@@ -96,6 +98,8 @@ order by month;
 
 **📝 Observation:** The table shows monthly aggregated metrics. March (201703) demonstrates an improvement across all key indicators—visits, pageviews, and transactions—compared to January and February.
 ### Query 02: Bounce rate per traffic source in July 2017 (Bounce_rate = num_bounce/total_visit) (order by total_visit DESC)
+**Purpose:** Calculates bounce rate = bounces / visits per source.  
+**Goal:** Evaluate traffic quality by source and identify underperforming channels.
 ```sql
 select
     trafficSource.source as source,
@@ -122,6 +126,8 @@ order by total_visits DESC;
 
 **📝 Observation:** Google and direct traffic are the main sources by volume, while platforms like Reddit and mail.google.com show significantly lower bounce rates.
 ### Query 3: Revenue by traffic source by week, by month in June 2017
+**Purpose:** Shows revenue distribution by traffic source, split by month and week.  
+**Goal:** Understand financial contribution and fluctuations per source over time.
 ```sql
 select 
     'month' as time_type,
@@ -165,6 +171,8 @@ order by time_type, revenue desc;
 
 **📝 Observation:** Direct traffic drives the most revenue both monthly and weekly. Google and DFA are also top-performing sources, but with lower contribution.
 ### Query 04: Average number of pageviews by purchaser type (purchasers vs non-purchasers) in June, July 2017.
+**Purpose:** Compares user engagement across groups based on purchase behavior (June–July 2017).  
+**Goal:** Identify browsing behavior and its correlation with conversion.
 ```sql
 with 
 purchaser_data as(
@@ -208,6 +216,8 @@ order by pd.month;
 
 **📝 Observation:** Surprisingly, non-purchasers have much higher average pageviews per user than purchasers, suggesting browsing-heavy behavior without conversion.
 ### Query 05: Average number of transactions per user that made a purchase in July 2017
+**Purpose:** Measures how many transactions each buyer performs on average.  
+**Goal:** Understand user lifetime value and buying depth.
 ```sql
 select
     format_date("%Y%m",parse_date("%Y%m%d",date)) as month,
@@ -228,6 +238,8 @@ group by month;
 
 **📝 Observation:** On average, each purchasing user completed over 4 transactions, indicating strong repeat buying behavior in July.
 ### Query 06: Average amount of money spent per session. Only include purchaser data in July 2017
+**Purpose:** Calculates monetary value per session with transaction.  
+**Goal:** Estimate effectiveness of purchase sessions in terms of revenue.
 ```sql
 select
     format_date("%Y%m",parse_date("%Y%m%d",date)) as month,
@@ -248,6 +260,8 @@ group by month;
 
 **📝 Observation:** Each purchase session generated an average of $43.86 in revenue, which reflects solid value per visit from buyers.
 ### Query 07: Other products purchased by customers who purchased product "YouTube Men's Vintage Henley" in July 2017. Output should show product name and the quantity was ordered.
+**Purpose:** Identifies other items frequently purchased with the target product.  
+**Goal:** Support cross-sell strategies and product bundling.
 ```sql
 with customers as (
   select distinct fullVisitorId
@@ -289,6 +303,8 @@ order by quantity desc;
 **📝 Observation:** Customers who bought the YouTube Henley also frequently purchased other branded apparel and accessories, especially Google Sunglasses.
 ### "Query 08: Calculate cohort map from product view to addtocart to purchase in Jan, Feb and March 2017. For example, 100% product view then 40% add_to_cart and 10% purchase. 
 #### Add_to_cart_rate = number product  add to cart/number product view. Purchase_rate = number product purchase/number product view. The output should be calculated in product level."
+**Purpose:** Calculates add-to-cart and purchase conversion rates at product level across 3 months.  
+**Goal:** Evaluate funnel effectiveness and optimize product-level conversion.
 ```sql
 with product_data as(
 select
@@ -319,4 +335,12 @@ from product_data;
 | 201703 | 23549            | 8782            | 2977         | 37.29            | 12.64         |
 
 **📝 Observation:** Conversion rates improve over time, with March showing the highest add-to-cart (37.29%) and purchase (12.64%) rates among the three months.
-## Final Conclusion & Recommendations
+## 🔎 Final Conclusion & Recommendations
+
+👉🏻 Based on the insights and findings above, we would recommend the **Ecommerce & Marketing Team** to consider the following:
+
+### 📌 Key Takeaways:
+
+✔️ **Replicate successful March strategies** across future campaigns, as this month showed consistent growth in visits, engagement, and conversions.  
+✔️ **Improve high-bounce traffic sources** such as YouTube and Facebook by optimizing ad content or landing pages to improve engagement.  
+✔️ **Introduce product bundles** that include “YouTube Men's Vintage Henley” and frequently co-purchased items (e.g., Google Sunglasses) to increase average order value.
