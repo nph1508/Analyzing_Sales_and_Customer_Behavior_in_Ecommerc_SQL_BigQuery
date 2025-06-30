@@ -5,10 +5,10 @@ Date: 2000-15-08
 
 Tools Used: SQL
 ## 📑 Table of Contents
-1. [📌 Background & Overview](#background--overview)
-2. [📂 Dataset Description & Data Structure](#dataset-description--data-structure)
-3. [🔎 Final Conclusion & Recommendations](#final-conclusion--recommendations)
-## Background & Overview
+1. [📌 Background & Overview](#-background--overview)
+2. [📂 Dataset Description & Data Structure](#-dataset-description--data-structure)
+3. [🔎 Final Conclusion & Recommendations](#-final-conclusion--recommendations)
+## 📌 Background & Overview
 🎯 Objective
 📖 This project uses SQL (BigQuery) to analyze an ecommerce dataset in order to:
 
@@ -38,7 +38,7 @@ How can we segment customers based on their purchase activity?
 
 ✔️ Decision-Makers who want to understand customer dynamics and product performance
 
-## Dataset Description & Data Structure
+## 📂 Dataset Description & Data Structure
 ### 📌 Data Source
 
 - **Source:** [Google Analytics Sample Dataset](https://console.cloud.google.com/marketplace/product/bigquery-public-data/google-analytics-sample)  
