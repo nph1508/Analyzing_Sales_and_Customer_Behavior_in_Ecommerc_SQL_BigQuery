@@ -11,25 +11,6 @@ Tools Used: SQL
 ## Background & Overview
 ## Dataset Description & Data Structure
 Table Schema: https://support.google.com/analytics/answer/3437719?hl=en
-| Field Name                            | Data Type | Description |
-|--------------------------------------|-----------|-------------|
-| fullVisitorId                        | STRING    | The unique visitor ID. |
-| date                                 | STRING    | The date of the session in YYYYMMDD format. |
-| totals                               | RECORD    | This section contains aggregate values across the session. |
-| totals.bounces                       | INTEGER   | Total bounces (for convenience). For a bounced session, the value is 1, otherwise it is null. |
-| totals.hits                          | INTEGER   | Total number of hits within the session. |
-| totals.pageviews                     | INTEGER   | Total number of pageviews within the session. |
-| totals.visits                        | INTEGER   | The number of sessions (for convenience). This value is 1 for sessions with interaction events. The value is null if there are no interaction events in the session. |
-| totals.transactions                  | INTEGER   | Total number of ecommerce transactions within the session. |
-| trafficSource.source                 | STRING    | The source of the traffic source. Could be the name of the search engine, the referring hostname, or a value of the `utm_source` URL parameter. |
-| hits                                 | RECORD    | This row and nested fields are populated for any and all types of hits. |
-| hits.eCommerceAction                 | RECORD    | This section contains all of the ecommerce hits that occurred during the session. This is a repeated field and has an entry for each hit that was collected. |
-| hits.eCommerceAction.action_type     | STRING    | The action type. Click through of product lists = 1, Product detail views = 2, Add product(s) to cart = 3, Remove product(s) from cart = 4, Check out = 5, Completed purchase = 6, Refund of purchase = 7, Checkout options = 8, Unknown = 0. Usually this action type applies to all the products in a hit, with the following exception: when hits.product.isImpression = TRUE, the corresponding product is a product impression that is seen while the product action is taking place (i.e., a "product in list view"). Example query to calculate number of products in list views:SELECT COUNT(hits.product.v2ProductName) FROM [foo-160803:123456789.ga_sessions_20170101] WHERE hits.product.isImpression == TRUE Example query to calculate number of products in detailed view: SELECT COUNT(hits.product.v2ProductName), FROM [foo-160803:123456789.ga_sessions_20170101] WHERE hits.ecommerceaction.action_type ='2' AND ( BOOLEAN(hits.product.isImpression) IS NULL OR BOOLEAN(hits.product.isImpression) == FALSE ) |
-| hits.product                         | RECORD    | This row and nested fields will be populated for each hit that contains Enhanced Ecommerce PRODUCT data. |
-| hits.product.productQuantity         | INTEGER   | The quantity of the product purchased. |
-| hits.product.productRevenue          | INTEGER   | The revenue of the product, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000). |
-| hits.product.productSKU              | STRING    | Product SKU. |
-| hits.product.v2ProductName           | STRING    | Product Name. |
 
 ## Final Conclusion & Recommendations
 ### Query 01: Calculate total visit, pageview, transaction for Jan, Feb and March 2017 (order by month)
@@ -114,21 +95,11 @@ order by time_type, revenue desc;
 | Month | 201706 | dfa | 8,862.23 |
 | Month | 201706 | mail.google.com | 2,563.13 |
 | Month | 201706 | search.myway.com | 105.939998 |
-| Month | 201706 | groups.google.com | 101.96 |
-| Month | 201706 | chat.google.com | 74.03 |
-| Month | 201706 | dealspotr.com | 72.95 |
-| Month | 201706 | mail.aol.com | 64.849998 |
-| Month | 201706 | phandroid.com | 52.95 |
 | Week | 201724 | (direct) | 30,908.91 |
 | Week | 201725 | (direct) | 27,295.32 |
 | Week | 201723 | (direct) | 17,325.68 |
 | Week | 201726 | (direct) | 14,914.81 |
 | Week | 201724 | google | 9,217.17 |
-| Week | 201722 | (direct) | 6,888.90 |
-| Week | 201726 | google | 5,330.57 |
-| Week | 201726 | dfa | 3,704.74 |
-| Week | 201724 | mail.google.com | 2,486.86 |
-| Week | 201724 | dfa | 2,341.56 |
 
 **📝 Observation:** Direct traffic drives the most revenue both monthly and weekly. Google and DFA are also top-performing sources, but with lower contribution.
 ### Query 04: Average number of pageviews by purchaser type (purchasers vs non-purchasers) in June, July 2017.
@@ -168,10 +139,10 @@ full join non_purchaser_data using(month)
 order by pd.month; 
 ```
 #### ✅ Results:
-| month | avg_pageviews_purchase | avg_pageviews_non_purchase |
-| --- | --- | --- |
-| 201706 | 94.02 | 316.87 |
-| 201707 | 124.24 | 334.06 |
+| month  | avg_pageviews_purchase | avg_pageviews_non_purchase |
+| ------ | ---------------------- | -------------------------- |
+| 201706 | 94.02                  | 316.87                     |
+| 201707 | 124.24                 | 334.06                     |
 
 **📝 Observation:** Surprisingly, non-purchasers have much higher average pageviews per user than purchasers, suggesting browsing-heavy behavior without conversion.
 ### Query 05: Average number of transactions per user that made a purchase in July 2017
@@ -189,9 +160,9 @@ and product.productRevenue is not null
 group by month;
 ```
 #### ✅ Results:
-| month | Avg_total_transactions_per_user |
-| ----- | ------------------------------- |
-| 201707 | 4.164|
+| month  | Avg_total_transactions_per_user |
+| ------ | ------------------------------- |
+| 201707 | 4.164                           |
 
 **📝 Observation:** On average, each purchasing user completed over 4 transactions, indicating strong repeat buying behavior in July.
 ### Query 06: Average amount of money spent per session. Only include purchaser data in July 2017
@@ -209,9 +180,9 @@ where product.productRevenue is not null
 group by month;
 ```
 #### ✅ Results:
-| month | avg_revenue_by_user_per_visit |
-| ----- | ----------------------------- |
-| 201707 | 43.86|
+| month  | avg_revenue_by_user_per_visit |
+| ------ | ----------------------------- |
+| 201707 | 43.86                         |
 
 **📝 Observation:** Each purchase session generated an average of $43.86 in revenue, which reflects solid value per visit from buyers.
 ### Query 07: Other products purchased by customers who purchased product "YouTube Men's Vintage Henley" in July 2017. Output should show product name and the quantity was ordered.
