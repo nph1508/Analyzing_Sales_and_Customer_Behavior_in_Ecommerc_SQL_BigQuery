@@ -89,7 +89,7 @@ where _table_suffix between '0101' and '0331'
 group by month
 order by month;
 ```
-#### ✅ Results:
+** ✅ Results:** 
 | month   | visits | pageviews | transactions |
 |---------|--------|-----------|--------------|
 | 201701  | 64,694 | 257,708   | 713          |
@@ -110,7 +110,7 @@ from `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`
 group by source
 order by total_visits DESC;
 ```
-#### ✅ Results:
+** ✅ Results:** 
 | source | total_visits | total_no_of_bounces | bounce_rate |
 | ------ | ------------ | ------------------- | ----------- |
 | google | 38400 | 19798 | 51.56 |
@@ -208,7 +208,7 @@ from purchaser_data pd
 full join non_purchaser_data using(month)
 order by pd.month; 
 ```
-#### ✅ Results:
+** ✅ Results:** 
 | month  | avg_pageviews_purchase | avg_pageviews_non_purchase |
 | ------ | ---------------------- | -------------------------- |
 | 201706 | 94.02                  | 316.87                     |
@@ -231,7 +231,7 @@ where  totals.transactions>=1
 and product.productRevenue is not null
 group by month;
 ```
-#### ✅ Results:
+** ✅ Results:** 
 | month  | Avg_total_transactions_per_user |
 | ------ | ------------------------------- |
 | 201707 | 4.164                           |
@@ -253,7 +253,7 @@ where product.productRevenue is not null
   and totals.transactions>=1
 group by month;
 ```
-#### ✅ Results:
+** ✅ Results:** 
 | month  | avg_revenue_by_user_per_visit |
 | ------ | ----------------------------- |
 | 201707 | 43.86                         |
@@ -286,7 +286,7 @@ where product.v2ProductName != "youtube men's vintage henley"
 group by product.v2ProductName
 order by quantity desc;
 ```
-#### ✅ Results:
+** ✅ Results:** 
 | other_purchased_products | quantity |
 | --- | --- |
 | Google Sunglasses | 20 |
@@ -327,7 +327,7 @@ select
     round(num_purchase/num_product_view * 100, 2) as purchase_rate
 from product_data;
 ```
-#### ✅ Results:
+** ✅ Results:** 
 | month  | num_product_view | num_add_to_cart | num_purchase | add_to_cart_rate | purchase_rate |
 | ------ | ---------------- | --------------- | ------------ | ---------------- | ------------- |
 | 201701 | 25787            | 7342            | 2143         | 28.47            | 8.31          |
