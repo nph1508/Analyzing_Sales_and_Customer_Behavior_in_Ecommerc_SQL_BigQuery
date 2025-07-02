@@ -1,4 +1,4 @@
-# SQL for Ecommerce: Analyzing Sales & Customer Behavior in BigQuery
+# Analyzing Sales & Customer Behavior in Ecommerce | SQL BigQuery
 Author: Nguyễn Phương Huy
 
 Date: 2000-15-08
