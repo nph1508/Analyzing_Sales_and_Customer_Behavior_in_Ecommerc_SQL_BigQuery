@@ -1,43 +1,44 @@
 # Analyzing Sales & Customer Behavior in Ecommerce | SQL BigQuery
-Author: Nguyễn Phương Huy
 
-Date: 2000-15-08
+<img src="https://github.com/user-attachments/assets/e1eaa635-a509-4f10-ab25-8cc0392ec787" width="100%" />
 
-Tools Used: SQL
+**Author:** Nguyễn Phương Huy
+
+**Date:** March 2025
+
+**Tools Used:** SQL
+
+---
 ## 📑 Table of Contents
 1. [📌 Background & Overview](#-background--overview)
 2. [📂 Dataset Description & Data Structure](#-dataset-description--data-structure)
 3. [🔎 Final Conclusion & Recommendations](#-final-conclusion--recommendations)
+
+---
 ## 📌 Background & Overview
-🎯 Objective
+
+### 🎯 Objective
 📖 This project uses SQL (BigQuery) to analyze an ecommerce dataset in order to:
 
-✔️ Uncover trends in sales performance across product categories and time periods
+ - ✔️ Uncover trends in sales performance across product categories and time periods
+ - ✔️ Analyze customer behavior patterns, including frequency and purchase volume
+ - ✔️ Identify top-performing products and underperforming segments
+ - ✔️ Provide data-driven insights to support inventory, marketing, and sales decisions
 
-✔️ Analyze customer behavior patterns, including frequency and purchase volume
+### 💡 Main Business Questions:
 
-✔️ Identify top-performing products and underperforming segments
+ - What are the best-selling product categories over time?
+ - Which customers contribute most to total revenue?
+ - Are there seasonal patterns in customer purchasing behavior?
+ - How can we segment customers based on their purchase activity?
 
-✔️ Provide data-driven insights to support inventory, marketing, and sales decisions
+### 👤 Who is this project for?
 
-💡 Main Business Questions:
+ - ✔️ Data Analysts seeking to practice SQL in a real-world ecommerce context
+ - ✔️ Business Analysts / Ecommerce Teams needing insights to optimize operations and marketing
+ - ✔️ Decision-Makers who want to understand customer dynamics and product performance
 
-What are the best-selling product categories over time?
-
-Which customers contribute most to total revenue?
-
-Are there seasonal patterns in customer purchasing behavior?
-
-How can we segment customers based on their purchase activity?
-
-👤 Who is this project for?
-
-✔️ Data Analysts seeking to practice SQL in a real-world ecommerce context
-
-✔️ Business Analysts / Ecommerce Teams needing insights to optimize operations and marketing
-
-✔️ Decision-Makers who want to understand customer dynamics and product performance
-
+---
 ## 📂 Dataset Description & Data Structure
 ### 📌 Data Source
 
@@ -89,7 +90,7 @@ where _table_suffix between '0101' and '0331'
 group by month
 order by month;
 ```
-** ✅ Results:** 
+**✅ Results:** 
 | month   | visits | pageviews | transactions |
 |---------|--------|-----------|--------------|
 | 201701  | 64,694 | 257,708   | 713          |
@@ -110,7 +111,7 @@ from `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`
 group by source
 order by total_visits DESC;
 ```
-** ✅ Results:** 
+**✅ Results:**
 | source | total_visits | total_no_of_bounces | bounce_rate |
 | ------ | ------------ | ------------------- | ----------- |
 | google | 38400 | 19798 | 51.56 |
@@ -155,7 +156,7 @@ group by time, source
 
 order by time_type, revenue desc;
 ```
-#### ✅ Results:
+**✅ Results:**
 | time_type | time | source | revenue |
 | --- | --- | --- | --- |
 | Month | 201706 | (direct) | 97,333.62 |
@@ -208,7 +209,7 @@ from purchaser_data pd
 full join non_purchaser_data using(month)
 order by pd.month; 
 ```
-** ✅ Results:** 
+**✅ Results:** 
 | month  | avg_pageviews_purchase | avg_pageviews_non_purchase |
 | ------ | ---------------------- | -------------------------- |
 | 201706 | 94.02                  | 316.87                     |
@@ -231,7 +232,7 @@ where  totals.transactions>=1
 and product.productRevenue is not null
 group by month;
 ```
-** ✅ Results:** 
+**✅ Results:**
 | month  | Avg_total_transactions_per_user |
 | ------ | ------------------------------- |
 | 201707 | 4.164                           |
@@ -253,7 +254,7 @@ where product.productRevenue is not null
   and totals.transactions>=1
 group by month;
 ```
-** ✅ Results:** 
+**✅ Results:**
 | month  | avg_revenue_by_user_per_visit |
 | ------ | ----------------------------- |
 | 201707 | 43.86                         |
@@ -286,7 +287,7 @@ where product.v2ProductName != "youtube men's vintage henley"
 group by product.v2ProductName
 order by quantity desc;
 ```
-** ✅ Results:** 
+**✅ Results:**
 | other_purchased_products | quantity |
 | --- | --- |
 | Google Sunglasses | 20 |
@@ -327,7 +328,7 @@ select
     round(num_purchase/num_product_view * 100, 2) as purchase_rate
 from product_data;
 ```
-** ✅ Results:** 
+**✅ Results:** 
 | month  | num_product_view | num_add_to_cart | num_purchase | add_to_cart_rate | purchase_rate |
 | ------ | ---------------- | --------------- | ------------ | ---------------- | ------------- |
 | 201701 | 25787            | 7342            | 2143         | 28.47            | 8.31          |
